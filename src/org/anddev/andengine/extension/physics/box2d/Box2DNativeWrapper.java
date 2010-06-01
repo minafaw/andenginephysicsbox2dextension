@@ -47,7 +47,7 @@ public class Box2DNativeWrapper {
 
 	public native void setGravity(final float pGravityX, final float pGravityY);
 
-	public native void setBodyXForm(final int pPhysicsID, final float pX, final float pY, final float pRadiant);
+	public native void setBodyTransform(final int pPhysicsID, final float pX, final float pY, final float pRadiant);
 
 	public native void setBodyAngularVelocity(final int pPhysicsID, final float pRadiant);
 

@@ -22,36 +22,40 @@ LOCAL_LDLIBS := -Lbuild/platforms/android-1.5/arch-arm/usr/lib -llog
 	
 LOCAL_MODULE    := andenginephysicsbox2dextension
 LOCAL_SRC_FILES := org_anddev_andengine_physics_box2d_Box2DNativeWrapper.cpp \
-	box2d-2.0.1/Common/b2Math.cpp \
-	box2d-2.0.1/Common/b2Settings.cpp \
-	box2d-2.0.1/Common/b2StackAllocator.cpp \
-	box2d-2.0.1/Common/b2BlockAllocator.cpp \
-	box2d-2.0.1/Dynamics/Contacts/b2CircleContact.cpp \
-	box2d-2.0.1/Dynamics/Contacts/b2PolyContact.cpp \
-	box2d-2.0.1/Dynamics/Contacts/b2Contact.cpp \
-	box2d-2.0.1/Dynamics/Contacts/b2PolyAndCircleContact.cpp \
-	box2d-2.0.1/Dynamics/Contacts/b2ContactSolver.cpp \
-	box2d-2.0.1/Dynamics/b2Island.cpp \
-	box2d-2.0.1/Dynamics/b2Body.cpp \
-	box2d-2.0.1/Dynamics/b2ContactManager.cpp \
-	box2d-2.0.1/Dynamics/b2WorldCallbacks.cpp \
-	box2d-2.0.1/Dynamics/b2World.cpp \
-	box2d-2.0.1/Dynamics/Joints/b2Joint.cpp \
-	box2d-2.0.1/Dynamics/Joints/b2GearJoint.cpp \
-	box2d-2.0.1/Dynamics/Joints/b2PrismaticJoint.cpp \
-	box2d-2.0.1/Dynamics/Joints/b2MouseJoint.cpp \
-	box2d-2.0.1/Dynamics/Joints/b2RevoluteJoint.cpp \
-	box2d-2.0.1/Dynamics/Joints/b2DistanceJoint.cpp \
-	box2d-2.0.1/Dynamics/Joints/b2PulleyJoint.cpp \
-	box2d-2.0.1/Collision/b2BroadPhase.cpp \
-	box2d-2.0.1/Collision/b2TimeOfImpact.cpp \
-	box2d-2.0.1/Collision/b2Collision.cpp \
-	box2d-2.0.1/Collision/b2Distance.cpp \
-	box2d-2.0.1/Collision/b2CollidePoly.cpp \
-	box2d-2.0.1/Collision/b2CollideCircle.cpp \
-	box2d-2.0.1/Collision/Shapes/b2Shape.cpp \
-	box2d-2.0.1/Collision/Shapes/b2PolygonShape.cpp \
-	box2d-2.0.1/Collision/Shapes/b2CircleShape.cpp \
-	box2d-2.0.1/Collision/b2PairManager.cpp
+	box2d-2.1.2/Collision/b2BroadPhase.cpp \
+	box2d-2.1.2/Collision/b2CollideCircle.cpp \
+	box2d-2.1.2/Collision/b2CollidePolygon.cpp \
+	box2d-2.1.2/Collision/b2Collision.cpp \
+	box2d-2.1.2/Collision/b2Distance.cpp \
+	box2d-2.1.2/Collision/b2DynamicTree.cpp \
+	box2d-2.1.2/Collision/b2TimeOfImpact.cpp \
+	box2d-2.1.2/Collision/Shapes/b2CircleShape.cpp \
+	box2d-2.1.2/Collision/Shapes/b2PolygonShape.cpp \
+	box2d-2.1.2/Common/b2BlockAllocator.cpp \
+	box2d-2.1.2/Common/b2Math.cpp \
+	box2d-2.1.2/Common/b2Settings.cpp \
+	box2d-2.1.2/Common/b2StackAllocator.cpp \
+	box2d-2.1.2/Dynamics/b2Body.cpp \
+	box2d-2.1.2/Dynamics/b2ContactManager.cpp \
+	box2d-2.1.2/Dynamics/b2Fixture.cpp \
+	box2d-2.1.2/Dynamics/b2Island.cpp \
+	box2d-2.1.2/Dynamics/b2World.cpp \
+	box2d-2.1.2/Dynamics/b2WorldCallbacks.cpp \
+	box2d-2.1.2/Dynamics/Contacts/b2CircleContact.cpp \
+	box2d-2.1.2/Dynamics/Contacts/b2Contact.cpp \
+	box2d-2.1.2/Dynamics/Contacts/b2ContactSolver.cpp \
+	box2d-2.1.2/Dynamics/Contacts/b2PolygonAndCircleContact.cpp \
+	box2d-2.1.2/Dynamics/Contacts/b2PolygonContact.cpp \
+	box2d-2.1.2/Dynamics/Contacts/b2TOISolver.cpp \
+	box2d-2.1.2/Dynamics/Joints/b2DistanceJoint.cpp \
+	box2d-2.1.2/Dynamics/Joints/b2FrictionJoint.cpp \
+	box2d-2.1.2/Dynamics/Joints/b2GearJoint.cpp \
+	box2d-2.1.2/Dynamics/Joints/b2Joint.cpp \
+	box2d-2.1.2/Dynamics/Joints/b2LineJoint.cpp \
+	box2d-2.1.2/Dynamics/Joints/b2MouseJoint.cpp \
+	box2d-2.1.2/Dynamics/Joints/b2PrismaticJoint.cpp \
+	box2d-2.1.2/Dynamics/Joints/b2PulleyJoint.cpp \
+	box2d-2.1.2/Dynamics/Joints/b2RevoluteJoint.cpp \
+	box2d-2.1.2/Dynamics/Joints/b2WeldJoint.cpp
 
 include $(BUILD_SHARED_LIBRARY)

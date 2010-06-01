@@ -1,5 +1,5 @@
 #include "org_anddev_andengine_physics_box2d_Box2DNativeWrapper.h"
-#include "box2d-2.0.1/Include/Box2D.h"
+#include "box2d-2.1.2/Include/Box2D.h"
 #include "stdlib.h"
 #include "stdio.h"
 #include <jni.h>
@@ -26,10 +26,10 @@ private:
 	jmethodID mAddMethodID;
 
 public:
-	void Add(const b2ContactPoint* pContactPoint) {
+	void BeginContact(const b2Contact* pContact) {
 		if(this->mContactListener != NULL) {
-			int32 physicsIDA = ((BodyIndexBodyData*)pContactPoint->shape1->GetBody()->GetUserData())->mBodyIndex;
-			int32 physicsIDB = ((BodyIndexBodyData*)pContactPoint->shape2->GetBody()->GetUserData())->mBodyIndex;
+			int32 physicsIDA = ((BodyIndexBodyData*)pContact->GetFixtureA()->GetBody()->GetUserData())->mBodyIndex;
+			int32 physicsIDB = ((BodyIndexBodyData*)pContact->GetFixtureB()->GetBody()->GetUserData())->mBodyIndex;
 			if(BODIES_CONTACT_ENABLED[physicsIDA] || BODIES_CONTACT_ENABLED[physicsIDB]) {
 				this->mEnv->CallVoidMethod(this->mContactListener, this->mAddMethodID, physicsIDA, physicsIDB);
 			}
@@ -46,15 +46,15 @@ public:
 		}
 	}
 
-	void Persist(const b2ContactPoint* pContactPoint) { }
-	void Remove(const b2ContactPoint* pContactPoint) { }
-	void Result(const b2ContactResult* pContactResult) { }
+	void EndContact(const b2Contact* pContact) { }
+	void PostSolve(const b2Contact* pContact, const b2ContactImpulse impulse) { } 	
+	void PreSolve(const b2Contact* pContact, const b2Manifold oldManifold) { }
 };
 
 JNIProxyContactListener *JNI_PROXY_CONTACTLISTENER;
 
 extern "C" {
-	JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_createWorld (JNIEnv* pEnvironment, jobject pCaller, jfloat pMinX, jfloat pMinY, jfloat pMaxX, jfloat pMaxY, jfloat pGravityX, jfloat pGravityY){
+	JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_createWorld (JNIEnv* pEnvironment, jobject pCaller, jfloat pGravityX, jfloat pGravityY){
 		if(WORLD != NULL){
 			/* Clear the WORLD. */
 			for(int32 i = 0; i < MAX_BODIES; i++){
@@ -67,10 +67,6 @@ extern "C" {
 			BODYINDEX = 0;
 		}
 
-		b2AABB worldAABB;
-		worldAABB.lowerBound.Set(pMinX, pMinY);
-		worldAABB.upperBound.Set(pMaxX, pMaxY);
-
 		// Define the gravity vector.
 		b2Vec2 gravity(pGravityX, pGravityY);
 
@@ -78,15 +74,15 @@ extern "C" {
 		bool doSleep = false;
 
 		// Construct a world object, which will hold and simulate the rigid bodies.
-		WORLD = new b2World(worldAABB, gravity, doSleep);
+		WORLD = new b2World(gravity, doSleep);
 		
 		JNI_PROXY_CONTACTLISTENER = new JNIProxyContactListener();
 		WORLD->SetContactListener(JNI_PROXY_CONTACTLISTENER);
 	}
 
-	JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_step (JNIEnv *pEnvironment, jobject pCaller, jobject pContactListener, jfloat pTimeStep, jint pIterations){
+	JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_step (JNIEnv *pEnvironment, jobject pCaller, jobject pContactListener, jfloat pTimeStep, jint pVelocityIterations, jint pPositionIterations){
 		JNI_PROXY_CONTACTLISTENER->SetEnv(pEnvironment, pContactListener);
-		WORLD->Step(pTimeStep, pIterations);
+		WORLD->Step(pTimeStep, pVelocityIterations, pPositionIterations);
 	}
 
 	JNIEXPORT jint JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_createCircle (JNIEnv* pEnvironment, jobject pCaller, jfloat pX, jfloat pY, jfloat pRadius, jfloat pDensity, jfloat pRestitution, jfloat pFriction, jboolean pFixedRotation, jboolean pHandleContacts){
@@ -163,10 +159,10 @@ extern "C" {
 		WORLD->SetGravity(gravity);
 	}
 
-	JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_setBodyXForm (JNIEnv *pEnvironment, jobject pCaller, jint pBodyIndex, jfloat pX, jfloat pY, jfloat pAngle){
+	JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_setBodyTransform (JNIEnv *pEnvironment, jobject pCaller, jint pBodyIndex, jfloat pX, jfloat pY, jfloat pAngle){
 		if(BODIES[pBodyIndex] != NULL){
 			b2Vec2 vec(pX, pY);
-			BODIES[pBodyIndex]->SetXForm(vec, pAngle);
+			BODIES[pBodyIndex]->SetTransform(vec, pAngle);
 		}
 	}
 

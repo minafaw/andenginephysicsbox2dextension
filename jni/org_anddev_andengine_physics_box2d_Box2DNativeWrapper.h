@@ -10,16 +10,16 @@ extern "C" {
 /*
  * Class:     org_anddev_andengine_physics_box2d_Box2DNativeWrapper
  * Method:    createWorld
- * Signature: (FFFFFF)V
+ * Signature: (FF)V
  */
-JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_createWorld (JNIEnv *, jobject, jfloat, jfloat, jfloat, jfloat, jfloat, jfloat);
+JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_createWorld (JNIEnv *, jobject, jfloat, jfloat);
 
 /*
  * Class:     org_anddev_andengine_physics_box2d_Box2DNativeWrapper
  * Method:    step
- * Signature: (FI)V
+ * Signature: (FII)V
  */
-JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_step (JNIEnv *, jobject, jobject, jfloat, jint);
+JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_step (JNIEnv *, jobject, jobject, jfloat, jint, jint);
 
 /*
  * Class:     org_anddev_andengine_physics_box2d_Box2DNativeWrapper
@@ -61,7 +61,7 @@ JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNa
  * Method:    setBodyXForm
  * Signature: (IFFF)V
  */
-JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_setBodyXForm (JNIEnv *, jobject, jint, jfloat, jfloat, jfloat);
+JNIEXPORT void JNICALL Java_org_anddev_andengine_extension_physics_box2d_Box2DNativeWrapper_setBodyTransform (JNIEnv *, jobject, jint, jfloat, jfloat, jfloat);
 
 /*
  * Class:     org_anddev_andengine_physics_box2d_Box2DNativeWrapper
